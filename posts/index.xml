@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on 灿的博客</title>
-    <link>https://example.org/posts/</link>
+    <link>https://yaocanwei.github.io/posts/</link>
     <description>Recent content in Posts on 灿的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2021 cheney</copyright>
     <lastBuildDate>Sun, 14 Mar 2021 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://yaocanwei.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>网关实现</title>
-      <link>https://example.org/2021/03/%E7%BD%91%E5%85%B3%E5%AE%9E%E7%8E%B0/</link>
+      <link>https://yaocanwei.github.io/2021/03/%E7%BD%91%E5%85%B3%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Sun, 14 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://example.org/2021/03/%E7%BD%91%E5%85%B3%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>https://yaocanwei.github.io/2021/03/%E7%BD%91%E5%85%B3%E5%AE%9E%E7%8E%B0/</guid>
       <description></description>
     </item>
     
