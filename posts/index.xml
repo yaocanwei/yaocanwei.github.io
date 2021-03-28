@@ -13,12 +13,13 @@
     
     
     <item>
-      <title>线上mysql死锁问题:&#34;如何避免死锁&#34;</title>
-      <link>https://yaocanwei.github.io/2021/03/%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/</link>
+      <title>记线上mysql死锁问题:&#34;如何避免死锁&#34;</title>
+      <link>https://yaocanwei.github.io/2021/03/%E8%AE%B0%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/</link>
       <pubDate>Sun, 28 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yaocanwei.github.io/2021/03/%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/</guid>
-      <description></description>
+      <guid>https://yaocanwei.github.io/2021/03/%E8%AE%B0%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/</guid>
+      <description>回忆之前参与过的一个项目，在项目的初期，我们是基于主库完成读写操作，并没有做读写分离。偶尔收到系统死锁异常报警信息。 经过日志分析，主要是作为幂等性校验的一张表出现死锁异常，初步怀疑是索引导致的死锁问题。 发生死锁的表结构及索引情况:
+CREATE TABLE `payment_record` ( `id` int(10) unsigned NOT NULL AUTO_INCREMENT, `payment_sn` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT &#39;支付流水&#39;, `order_id` bigint(20) NOT NULL COMMENT &#39;订单表id&#39;, `member_id` bigint(20) NOT NULL COMMENT &#39;交易的用户ID&#39;, `amount` decimal(8,2) NOT NULL COMMENT &#39;交易金额&#39;, `pay_channel` tinyint(4) NOT NULL COMMENT &#39;支付类型 0:余额 1:微信 2:支付宝&#39;, `source` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT &#39;支付来源 wx app web&#39;, `status` tinyint(4) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;支付状态 -1：取消 0 未完成 1已完成 -2:异常&#39;, `completion_time` datetime(0) DEFAULT NULL COMMENT &#39;交易完成时间&#39;, `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT &#39;备注&#39;, `created_at` datetime(0) DEFAULT NULL, `updated_at` datetime(0) DEFAULT NULL, PRIMARY KEY (`id`), INDEX `idx_payment_status`(`order_id`,`status`) ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;  首先，创建一张支付记录表，主要用于校验订单重复支付。 为了能重现该问题，我们先关闭自动提交事务提交。(MySQL 数据库和 Oracle 提交事务不太一样，MySQL 数据库默认情况下是自动提交事务) 以下命令行用于查看自动提交事务是否开启：</description>
     </item>
     
     <item>
