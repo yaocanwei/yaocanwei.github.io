@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2021 cheney</copyright>
-    <lastBuildDate>Sun, 14 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 28 Mar 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://yaocanwei.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>线上mysql死锁问题:&#34;如何避免死锁&#34;</title>
+      <link>https://yaocanwei.github.io/2021/03/%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/</link>
+      <pubDate>Sun, 28 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://yaocanwei.github.io/2021/03/%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>开发必备-网络基础</title>

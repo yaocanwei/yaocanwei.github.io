@@ -6,17 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-<meta property="og:title" content="详解raft协议原理" />
+<meta property="og:title" content="线上mysql死锁问题:&#34;如何避免死锁&#34;" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://yaocanwei.github.io/2021/03/%E8%AF%A6%E8%A7%A3raft%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/" />
-<meta property="article:published_time" content="2021-03-11T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-03-11T00:00:00+00:00" />
+<meta property="og:url" content="https://yaocanwei.github.io/2021/03/%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/" />
+<meta property="article:published_time" content="2021-03-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-03-28T00:00:00+00:00" />
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="详解raft协议原理"/>
+<meta name="twitter:title" content="线上mysql死锁问题:&#34;如何避免死锁&#34;"/>
 <meta name="twitter:description" content=""/>
 <meta name="generator" content="Hugo 0.56.1" />
 
@@ -26,11 +26,11 @@
 {
   "@context": "http://schema.org",
   "@type": "BlogPosting",
-  "headline": "详解raft协议原理",
-  "url": "https://yaocanwei.github.io/2021/03/%E8%AF%A6%E8%A7%A3raft%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/",
+  "headline": "线上mysql死锁问题:\"如何避免死锁\"",
+  "url": "https://yaocanwei.github.io/2021/03/%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/",
   "wordCount": "0",
-  "datePublished": "2021-03-11T00:00:00+00:00",
-  "dateModified": "2021-03-11T00:00:00+00:00",
+  "datePublished": "2021-03-28T00:00:00+00:00",
+  "dateModified": "2021-03-28T00:00:00+00:00",
   "author": {
     "@type": "Person",
     "name": "姚灿伟"
@@ -40,9 +40,9 @@
 
 
 
-    <link rel="canonical" href="https://yaocanwei.github.io/2021/03/%E8%AF%A6%E8%A7%A3raft%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/">
+    <link rel="canonical" href="https://yaocanwei.github.io/2021/03/%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/">
 
-    <title>详解raft协议原理 | 灿的博客</title>
+    <title>线上mysql死锁问题:&ldquo;如何避免死锁&rdquo; | 灿的博客</title>
 
     
     <!-- combined, minified CSS -->
@@ -106,9 +106,9 @@
 
 <article class="blog-post">
   <header>
-    <h2 class="blog-post-title" dir="auto"><a href="https://yaocanwei.github.io/2021/03/%E8%AF%A6%E8%A7%A3raft%E5%8D%8F%E8%AE%AE%E5%8E%9F%E7%90%86/">详解raft协议原理</a></h2>
+    <h2 class="blog-post-title" dir="auto"><a href="https://yaocanwei.github.io/2021/03/%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/">线上mysql死锁问题:&ldquo;如何避免死锁&rdquo;</a></h2>
     <p class="blog-post-meta">
-<time datetime="2021-03-11T00:00:00Z">Thu Mar 11, 2021</time>
+<time datetime="2021-03-28T00:00:00Z">Sun Mar 28, 2021</time>
 </p>
   </header>
   
@@ -123,9 +123,9 @@
     <section>
     <h4>分享</h4>
     <nav class="nav sharing-icons">
-      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fyaocanwei.github.io%2f2021%2f03%2f%25E8%25AF%25A6%25E8%25A7%25A3raft%25E5%258D%258F%25E8%25AE%25AE%25E5%258E%259F%25E7%2590%2586%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
-      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fyaocanwei.github.io%2f2021%2f03%2f%25E8%25AF%25A6%25E8%25A7%25A3raft%25E5%258D%258F%25E8%25AE%25AE%25E5%258E%259F%25E7%2590%2586%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
-      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fyaocanwei.github.io%2f2021%2f03%2f%25E8%25AF%25A6%25E8%25A7%25A3raft%25E5%258D%258F%25E8%25AE%25AE%25E5%258E%259F%25E7%2590%2586%2f&amp;text=%e8%af%a6%e8%a7%a3raft%e5%8d%8f%e8%ae%ae%e5%8e%9f%e7%90%86" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
+      <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fyaocanwei.github.io%2f2021%2f03%2f%25E7%25BA%25BF%25E4%25B8%258Amysql%25E6%25AD%25BB%25E9%2594%2581%25E9%2597%25AE%25E9%25A2%2598%25E5%25A6%2582%25E4%25BD%2595%25E9%2581%25BF%25E5%2585%258D%25E6%25AD%25BB%25E9%2594%2581%2f" title="Share on Facebook"><span class="fab fa-facebook-f fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fyaocanwei.github.io%2f2021%2f03%2f%25E7%25BA%25BF%25E4%25B8%258Amysql%25E6%25AD%25BB%25E9%2594%2581%25E9%2597%25AE%25E9%25A2%2598%25E5%25A6%2582%25E4%25BD%2595%25E9%2581%25BF%25E5%2585%258D%25E6%25AD%25BB%25E9%2594%2581%2f" title="Share on LinkedIn"><span class="fab fa-linkedin-in fa-2x" aria-hidden="true"></span></a>
+      <a class="nav-item" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fyaocanwei.github.io%2f2021%2f03%2f%25E7%25BA%25BF%25E4%25B8%258Amysql%25E6%25AD%25BB%25E9%2594%2581%25E9%2597%25AE%25E9%25A2%2598%25E5%25A6%2582%25E4%25BD%2595%25E9%2581%25BF%25E5%2585%258D%25E6%25AD%25BB%25E9%2594%2581%2f&amp;text=%e7%ba%bf%e4%b8%8amysql%e6%ad%bb%e9%94%81%e9%97%ae%e9%a2%98%3a%22%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d%e6%ad%bb%e9%94%81%22" title="Tweet this"><span class="fab fa-twitter fa-2x"></span></a>
     </nav>
   </section>
 

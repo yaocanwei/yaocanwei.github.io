@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://yaocanwei.github.io/2021/03/%E7%BA%BF%E4%B8%8Amysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/</loc>
+    <lastmod>2021-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://yaocanwei.github.io/2021/03/%E5%BC%80%E5%8F%91%E5%BF%85%E5%A4%87-%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2021-03-14T00:00:00+00:00</lastmod>
   </url>
@@ -44,13 +49,13 @@
   
   <url>
     <loc>https://yaocanwei.github.io/posts/</loc>
-    <lastmod>2021-03-14T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yaocanwei.github.io/</loc>
-    <lastmod>2021-03-14T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
